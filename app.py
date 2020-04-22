@@ -28,7 +28,7 @@ def index():
 def add():
     #todo = Todo(text=request.form['todoitem'], complete=False)
     get_new_todo = request.form['todoitem']
-    sql =  "INSERT INTO Todo (text, complete) VALUES (get_new_todo, False)
+    sql =  "INSERT INTO Todo (text, complete) VALUES (get_new_todo, False)"
     crsr.execute(sql)
     crsr.commit()
     return redirect(url_for('index'))
