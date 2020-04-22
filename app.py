@@ -22,7 +22,7 @@ crsr.execute(sql)
 
 @app.route('/')
 def index():
-    crsr =  connection.execute("SELECT * from todo")
+    crsr =  connection.execute("SELECT * FROM todo")
     info_of_row = crsr.fetchall()
     return render_template('index.html', info_of_row = info_of_row)
 
