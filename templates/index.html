@@ -16,9 +16,9 @@
         </form>
 
         <ol>
-            {% for info_of_row in rows %}
+            {% for id, content, done in rows %}
             <li>
-                {{ info_of_row.content}}
+                {{ content.content}}
             </li>
             {% endfor %}
         </ol>
