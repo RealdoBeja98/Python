@@ -1,44 +1,39 @@
+from flask import Flask, request, render_template, redirect
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-#connecting to the database
-connection = sqlite3.connect("todo.db", check_same_thread = False)
+#create a database sqlite3
+conn = sqlite3.connect('todo.db', check_same_thread = False)
+#create the cursor for the database
+cursor = conn.cursor()
 
-#cursor
-crsr = connection.cursor()
+#create the tabble
+sql = """CREATE TABLE  IF NOT EXISTS Task(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    content VARCHAR,
+    done BOOLEAN
+)"""
 
-#SQL command to create a table in the database
-sql = """CREATE TABLE IF NOT EXISTS Todo(
-PID INTEGER PRIMARY KEY AUTOINCREMENT,
-text VARCHAR(200),
-complete BOOLEAN)"""
-
-crsr.execute(sql)
-
-
-
+cursor.execute(sql)
 
 @app.route('/')
-def index():
-    crsr =  connection.execute("SELECT * FROM todo")
-    info_of_row = crsr.fetchall()
-    return render_template('index.html', info_of_row = info_of_row)
+def tasks_list():
+    sql = 'SELECT * FROM Task'
+    cursor.execute(sql)
+    rows = cursor.fetchall() #has all information of the table Task
+    return render_template('index.html', rows = rows)
 
-@app.route('/add', methods=['POST'])
-def add():
-    #todo = Todo(text=request.form['todoitem'], complete=False)
-    get_new_todo = request.form['todoitem']
-    sql=  "INSERT INTO Todo (text, complete) VALUES ('get_new_todo', False)"
-    crsr.execute(sql)
-    connection.commit()
-    return redirect(url_for('index'))
-
-
-
-
-
+@app.route('/task', methods = ['POST'])
+def add_task():
+    content_of_task = request.form['content']
+    if not content_of_task:
+        return 'Error'
+    #add in the database the content
+    sql = "INSERT INTO Task (content, done) VALUES ('content_of_task', False)"
+    cursor.execute(sql)
+    conn.commit()
+    return redirect('/')
 
 
 
@@ -46,6 +41,4 @@ def add():
 if __name__ == '__main__':
     app.run(debug = True)
 
-connection.close()
-
-
+conn.close()

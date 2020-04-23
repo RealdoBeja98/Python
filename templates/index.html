@@ -1,26 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
-<body>
-    <h1>
-        Todo List
-    </h1>
-    <div>Add a new todo item: 
-        <form action="/add" method="POST">   
-            <input type="text" name="todoitem">
-            <input type="submit">
-        </form> 
-    </div>
-    <div>
-        <ul>
-            {% for todo in info_of_row%}
-            <li style="font-size: 20pt"><input type="checkbox">{{ todo.text }}</li>
+<body style="background-color: rgb(186,236,105)">
+    <div class="label">
+        <h1>TODO App...</h1>
+        <form action="/task" method="post">
+        <p><input type="text" name="content"></p>
+        <input type="submit" value="Add Task">
+        </form>
+
+        <ol>
+            {% for info_of_row in rows %}
+            <li>
+                {{ info_of_row.content}}
+            </li>
             {% endfor %}
-        </ul>
+        </ol>
+
+
+
     </div>
+
 </body>
 </html>
