@@ -28,7 +28,7 @@ def tasks_list():
 def add_task():
     content_of_task = request.form['content']
     if not content_of_task:
-        return redirect()
+        return redirect('/')
     #add in the database the content
     sql = "INSERT INTO Task (content, done) VALUES ('{}', False)".format(content_of_task)
     cursor.execute(sql)

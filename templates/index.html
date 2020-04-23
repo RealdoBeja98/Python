@@ -16,9 +16,9 @@
         </form>
 
         <ol>
-            {% for id, content, done in rows %}
+            {% for row in rows %} <!-- It returns a tupple {id, content, bool}-->
             <li>
-                {{ content.content}}
+                {{ row[1] }}
             </li>
             {% endfor %}
         </ol>
