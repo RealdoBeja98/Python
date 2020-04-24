@@ -42,22 +42,6 @@ def delete_task(id):
     conn.commit()
     return redirect('/')
 
-@app.route('/done/<id>')
-def task_complete(id):
-    cursor.execute("SELECT * FROM Task WHERE id=?", (id,))
-    if done:
-        done = False
-    else:
-        done = True
-    conn.commit()
-    return redirect('/')
-        
-
-
-
-
-
-
 
 if __name__ == '__main__':
     app.run(debug = True)
