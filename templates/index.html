@@ -18,8 +18,10 @@
         <ol>
             {% for row in rows %} <!-- It returns a tupple {id, content, bool}-->
             <li>
-                {{ row[1] }}
-                <a href="/delete/ {{ row[0] }}" > Delete</a>
+                 {% if row[2] %} <strike>{% endif %}{{ row[1] }}{%if row[2]%}</strike>{% endif %}
+                <a href="/done/{{row[0]}}">Done</a>
+                &nbsp;
+                <a href="/delete/{{ row[0]}}" >Delete</a>
             </li>
             {% endfor %}
         </ol>

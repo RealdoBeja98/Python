@@ -35,7 +35,25 @@ def add_task():
     conn.commit()
     return redirect('/')
 
-@app.route()
+@app.route('/delete/<id>')
+def delete_task(id):
+    cursor.execute("DELETE FROM Task WHERE id=?", (id,))
+
+    conn.commit()
+    return redirect('/')
+
+@app.route('/done/<id>')
+def task_complete(id):
+    cursor.execute("SELECT * FROM Task WHERE id=?", (id,))
+    if done:
+        done = False
+    else:
+        done = True
+    conn.commit()
+    return redirect('/')
+        
+
+
 
 
 
